@@ -38,120 +38,122 @@
 
         <div class="menu-list">
             <div class="menu-item {{item.total | hasValue}}" 
-            ng-repeat="item in C.menu | filterMenu" 
-            ng-click="C.vote.doVote(item)">
-            <div class="glyphicon glyphicon-play is-you" ng-show="C.vote.checkYou(item)"></div>
-            <div class="count">{{item.total}}</div>
-            <span class="item-name">{{item.name}}</span>
-            <div class="users-container">
-                <div class="user" ng-repeat="user in item.list">
-                    <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >    
-                </div>
+                ng-repeat="item in C.menu | filterMenu" 
+                ng-click="C.vote.doVote(item)">
+                <div class="glyphicon glyphicon-play is-you" ng-show="C.vote.checkYou(item)"></div>
+                <div class="count">{{item.total}}</div>
+                <span class="item-name">{{item.name}}</span>
+                <div class="users-container">
+                    <div class="user" ng-repeat="user in item.list">
+                        <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >    
+                    </div>
 
+                </div>
+            
+            </div>
+            <div class="total-call">{{C.menu.total}}</div>
+        </div>
+
+        <div class="user-list">
+            <div class="user-item  {{user.checked | toCheckedClass}}" ng-repeat="user in C.users | sortUsers" >
+                <div class="user" >
+
+                    <div class="line1">
+                        <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >    
+                        <span>{{user.fullname}}</span>
+                    </div>
+                    <!-- <div class="line2">{{user.updated_time|toTime}}</div> -->
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="user-list">
-        <div class="user-item  {{user.checked | toCheckedClass}}" ng-repeat="user in C.users | sortUsers" >
-            <div class="user" >
-
-                <div class="line1">
-                    <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >    
-                    <span>{{user.fullname}}</span>
-                </div>
-                <!-- <div class="line2">{{user.updated_time|toTime}}</div> -->
-            </div>
+    <div id="login" class="login-first">
+        <div class="fb-button-container">
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+            </fb:login-button>
         </div>
+        <div id="status">Login Facebook đi mày</div>
     </div>
-</div>
 
-<div id="login" class="login-first">
-    <div class="fb-button-container">
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-        </fb:login-button>
-    </div>
-    <div id="status">Login Facebook đi mày</div>
-</div>
+    <script>
+        if(FACEBOOK_ID && FULLNAME){
+            document.getElementById('login').style.display = "none"
+        }
+        else{
+            // This is called with the results from from FB.getLoginStatus().
+            function statusChangeCallback(response) {
+                console.log('statusChangeCallback');
+                console.log(response);
+                // The response object is returned with a status field that lets the
+                // app know the current login status of the person.
+                // Full docs on the response object can be found in the documentation
+                // for FB.getLoginStatus().
+                if (response.status === 'connected') {
+                    // Logged into your app and Facebook.
+                    testAPI();
+                } else if (response.status === 'not_authorized') {
+                    // The person is logged into Facebook, but not your app.
+                    document.getElementById('status').innerHTML = 'Login Facebook đi mày';
+                } else {
+                    // The person is not logged into Facebook, so we're not sure if
+                    // they are logged into this app or not.
+                    document.getElementById('status').innerHTML = 'Login Facebook đi mày';
+                }
+            }
 
-<script>
-    if(FACEBOOK_ID && FULLNAME){
-        document.getElementById('login').style.display = "none"
-    }
-    else{
-        // This is called with the results from from FB.getLoginStatus().
-        function statusChangeCallback(response) {
-            console.log('statusChangeCallback');
-            console.log(response);
-            // The response object is returned with a status field that lets the
-            // app know the current login status of the person.
-            // Full docs on the response object can be found in the documentation
-            // for FB.getLoginStatus().
-            if (response.status === 'connected') {
-                // Logged into your app and Facebook.
-                testAPI();
-            } else if (response.status === 'not_authorized') {
-                // The person is logged into Facebook, but not your app.
-                document.getElementById('status').innerHTML = 'Login Facebook đi mày';
-            } else {
-                // The person is not logged into Facebook, so we're not sure if
-                // they are logged into this app or not.
-                document.getElementById('status').innerHTML = 'Login Facebook đi mày';
+            // This function is called when someone finishes with the Login
+            // Button.  See the onlogin handler attached to it in the sample
+            // code below.
+            function checkLoginState() {
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                });
+            }
+
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '1611030032498808',
+                    xfbml      : true,
+                    version    : 'v2.3'
+                });
+
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                });
+
+            };
+
+            // Load the SDK asynchronously
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            // Here we run a very simple test of the Graph API after login is
+            // successful.  See statusChangeCallback() for when this call is made.
+            function testAPI() {
+                console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function(response) {
+                    console.log('Successful login for: ' + response.name);
+                    // document.getElementById('status').innerHTML =
+                    //   'Thanks for logging in, ' + response.name + '!';
+                    document.getElementById('login').style.display = "none"
+                    FULLNAME = response.name;
+                    FACEBOOK_ID = response.id;
+
+                    localStorage.setItem("fbid", FACEBOOK_ID);
+                    localStorage.setItem("fullname", FULLNAME);
+
+                    // angular.element(document.getElementById('gccontroller')).scope().loggined(response.id, response.name);
+                });
             }
         }
 
-        // This function is called when someone finishes with the Login
-        // Button.  See the onlogin handler attached to it in the sample
-        // code below.
-        function checkLoginState() {
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
-        }
-
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '1611030032498808',
-                xfbml      : true,
-                version    : 'v2.3'
-            });
-
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
-
-        };
-
-        // Load the SDK asynchronously
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-        // Here we run a very simple test of the Graph API after login is
-        // successful.  See statusChangeCallback() for when this call is made.
-        function testAPI() {
-            console.log('Welcome!  Fetching your information.... ');
-            FB.api('/me', function(response) {
-                console.log('Successful login for: ' + response.name);
-                // document.getElementById('status').innerHTML =
-                //   'Thanks for logging in, ' + response.name + '!';
-                document.getElementById('login').style.display = "none"
-                FULLNAME = response.name;
-                FACEBOOK_ID = response.id;
-
-                localStorage.setItem("fbid", FACEBOOK_ID);
-                localStorage.setItem("fullname", FULLNAME);
-
-                // angular.element(document.getElementById('gccontroller')).scope().loggined(response.id, response.name);
-            });
-        }
-    }
-
-    
-</script>
+        
+    </script>
 </body>
 </html>

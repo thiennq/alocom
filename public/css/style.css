@@ -139,6 +139,9 @@ h1.header {
   margin-right: 5px;
   border-radius: 5px;
 }
+.menu-list .total-call {
+  display: none;
+}
 .user-list {
   position: fixed;
   width: 300px;
