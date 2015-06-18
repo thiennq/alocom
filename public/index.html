@@ -16,7 +16,7 @@
 <body ng-app="GCApp">
     <div id="gccontroller" class="controller" ng-controller="GCController as C">
         <h1 class="header">Danh sách món ngày {{ C.today() }} by {{C.menu.host.fullname}}
-            <img src="http://graph.facebook.com/{{C.menu.host.fbid}}/picture?type=square">
+            <img src="//graph.facebook.com/{{C.menu.host.fbid}}/picture?type=square">
         </h1>
         <div class="menu-btn-container">
             <button class="btn btn-info" ng-click="C.menu.visible = !C.menu.visible">Nhập danh sách món mới</button>
@@ -45,7 +45,7 @@
             <span class="item-name">{{item.name}}</span>
             <div class="users-container">
                 <div class="user" ng-repeat="user in item.list">
-                    <img src="http://graph.facebook.com/{{user.fbid}}/picture?type=square" >    
+                    <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >    
                 </div>
 
             </div>
@@ -57,7 +57,7 @@
             <div class="user" >
 
                 <div class="line1">
-                    <img src="http://graph.facebook.com/{{user.fbid}}/picture?type=square" >    
+                    <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >    
                     <span>{{user.fullname}}</span>
                 </div>
                 <!-- <div class="line2">{{user.updated_time|toTime}}</div> -->
