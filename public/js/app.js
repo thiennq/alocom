@@ -28,6 +28,25 @@ app.filter("hasValue", function(){
     }
 });
 
+app.filter("filterMenu", function(){
+    return function(menu){
+        var threshold = 0;
+        if(menu.done){
+            threshold = 1;
+        }
+
+        var l = [];
+
+        for(var i = 0; i < menu.list.length; i++){
+            if(menu.list[i].total >= threshold){
+                l.push(memu.list[i]);
+            }
+        }
+
+        return l;
+    }
+})
+
 
 app.filter("toCheckedClass", function(){
     return function(value){

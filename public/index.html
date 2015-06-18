@@ -38,7 +38,7 @@
 
         <div class="menu-list">
             <div class="menu-item {{item.total | hasValue}}" 
-            ng-repeat="item in C.menu.array " 
+            ng-repeat="item in C.menu | filterMenu" 
             ng-click="C.vote.doVote(item)">
             <div class="glyphicon glyphicon-play is-you" ng-show="C.vote.checkYou(item)"></div>
             <div class="count">{{item.total}}</div>
