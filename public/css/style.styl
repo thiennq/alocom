@@ -1,0 +1,222 @@
+fontSansSerif = 'Roboto Condensed', sans-serif;
+
+html, body{
+    width 100%
+    height 100%
+    // font-family fontSansSerif
+}
+
+
+h1, h2, h3{
+    font-family fontSansSerif
+}
+
+h1.header{
+    text-align center
+    font-weight bold
+    font-family fontSansSerif
+}
+
+.menu-btn-container{
+    width 100%
+    text-align center
+    
+}
+
+.modal{
+    position absolute
+    left 0
+    top 0
+    width 100%
+    height 100%
+    background rgba(0,0,0,0.8)
+    display block
+    z-index 1
+}
+
+.menu-raw{
+    position fixed
+    width 100%
+    height 100%
+    left 0
+    top 0
+    z-index 1000
+
+
+    menuRawWidth = 500px
+    menuRawHeight = 400px
+    .menu-raw-input-dialog{
+        width menuRawWidth
+        height menuRawHeight
+        position absolute
+        left 50%
+        top 50%
+        margin-left -(menuRawWidth/2)
+        margin-top -(menuRawHeight/2)
+        background #fff
+        border-radius 3px
+        padding 20px
+        box-sizing border-box 
+        z-index 2
+        
+        btnCloseSize = 20px
+        
+        h2{
+            margin-top 0
+        }
+        
+        .menu-raw-input-container{
+            width 100%
+            height 75%
+            box-sizing border-box
+
+            textarea{
+                width 100%
+                height 100%
+                outline 0
+                resize none
+            }
+        }
+        
+        .btn.btn-confirm{
+            position absolute
+            bottom 20px
+            right 20px
+            
+            
+        }
+
+        .btn.btn-close{
+            position absolute
+            right 0
+            top 0
+            width btnCloseSize
+            height btnCloseSize
+            line-height btnCloseSize
+            text-align center
+            opacity 0.7
+            font-size 20px
+            padding 0
+
+            &:hover{
+                opacity 1
+            }
+        }
+
+    }
+}
+
+.menu-list{
+    position absolute
+    left 50%
+    top 120px
+    margin-left -130px
+    
+    .menu-item{
+        font-family fontSansSerif
+        font-size 18px
+        cursor pointer
+        padding 2px
+        
+        
+        
+        .count{
+            display inline-block
+            background #5BC0DE
+            color #fff
+            font-weight bold
+            width 25px
+            height 25px
+            line-height 25px
+            text-align center
+            margin-right 15px
+            border-radius 5px
+            
+        }
+        
+        &.hasValue{
+            color #C9302C
+            
+            .count{
+                background #C9302C
+            }
+        }
+        
+        .is-you{
+            display inline-block!important
+            color black
+            
+            &.ng-show{
+                opacity 1
+            }
+            
+            &.ng-hide{
+                opacity 0
+            }
+        }
+        
+        .users-container{
+            display inline-block
+            
+            .user{
+                display inline-block
+                img{
+                    width 25px
+                    height 25px
+                    margin-right 5px
+                    border-radius 5px
+                }
+            }
+        }
+    }
+
+}
+
+.user-list{
+    position fixed
+    width 200px
+    height 100%
+    left 0
+    top 0
+    overflow-y: auto 
+
+    .user-item{
+        margin-top 10px
+
+        &.checked{
+            display block!important
+            opacity 0.4
+        }
+
+        .line1{
+            font-size 20px
+            color black
+            
+            img{
+                border-radius 5px
+                margin-left 5px
+                margin-right 5px
+            }
+        }
+
+        .line2{
+            font-size 12px
+            color #aaa
+        }
+    }
+}
+
+
+.login-first{
+    position fixed
+    width 100%
+    height 100%
+    background #fff
+    top 0
+    left 0
+    padding 20px
+    
+    .fb-button-container{
+        display inline-block
+    }
+}
