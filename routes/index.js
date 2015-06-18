@@ -6,13 +6,7 @@ var pplHash = {};
 var canVote = false;
 var users = {};
 var host = {};
-
-try {
-	var userFile = fs.readFileSync('users.json');
-	users = JSON.parse(userFile);
-} catch (e) {
-	console.log("users.json not found");
-}
+var userHelper = require('../lib/userHelper');
 
 router.post('/menu', function(req, res) {
 	var menu = req.body.menu;
@@ -53,7 +47,7 @@ router.get('/menu', function(req, res) {
 	});
 });
 
-router.post('/vote', function(req, res) {
+router.post('/vote', async function(req, res) {
 	var fbid = req.body.fbid;
 	var fullname = req.body.fullname;
 	var dish = req.body.dish;
@@ -100,11 +94,20 @@ router.post('/vote', function(req, res) {
 	});
 
 	if (updateJson) {
-		fs.writeFileSync("users.json", JSON.stringify(users, '', '  '));
+		let result = await userHelper.store(users);
 	}
 });
 
 router.post('/done', function(req, res) {
+	var fbid = req.body.fbid;
+	if (fbid !== host.fbid) {
+		res.send({
+			code: "error.done.not_host",
+			message: "Only host can do this action."
+		});
+		return;
+	}
+
 	canVote = false;
 	res.send({
 		code: 0,
@@ -127,4 +130,12 @@ router.get('/users', function(req, res) {
 	});
 });
 
+async function init() {
+	let userList = await userHelper.list();
+	if (userList) {
+		users = userList;
+	}
+}
+
+init();
 module.exports = router;
