@@ -114,6 +114,13 @@ app.controller("GCController", function($scope, $http, $interval){
         console.log("fbid = ", id, "name = ", name);
     }
 
+    C.sendDone = function(){
+        $http.post(host + '/done', {
+            fbid: FACEBOOK_ID,
+            fullname: FULLNAME
+        })
+    };
+
     $interval(doReloadMenu, 5000);
 
 });

@@ -7,7 +7,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css">
     <title>Goi Com</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <!-- <script type="text/javascript" src="js/fake.js"></script> -->
@@ -20,6 +20,7 @@
         </h1>
         <div class="menu-btn-container">
             <button class="btn btn-info" ng-click="C.menu.visible = !C.menu.visible">Nhập danh sách món mới</button>
+            <button class="btn btn-success" ng-if="FACEBOOK_ID === C.menu.host.fbid" ng-click="C.sendDone()">Done</button>
         </div>
         <div class="menu-raw" ng-show="C.menu.visible">
             <div class="modal"></div>
@@ -54,7 +55,7 @@
     <div class="user-list">
         <div class="user-item  {{user.checked | toCheckedClass}}" ng-repeat="user in C.users | sortUsers" >
             <div class="user" >
-                
+
                 <div class="line1">
                     <img src="http://graph.facebook.com/{{user.fbid}}/picture?type=square" >    
                     <span>{{user.fullname}}</span>
