@@ -100,7 +100,7 @@ app.controller("GCController", function($scope, $http, $interval){
     
     var doReloadUsers = function(){
         $http.get(host + "/users").success(function(data){
-            console.log(data);
+            // console.log(data);
             C.users.all = data.users;
         });
     };
@@ -122,7 +122,7 @@ app.controller("GCController", function($scope, $http, $interval){
     };
 
     C.isHost = function(){
-        console.log(FACEBOOK_ID, C.menu.host.fbid)
+        console.log(FACEBOOK_ID, C.menu.host.fbid);
         return FACEBOOK_ID == C.menu.host.fbid;
     }
 
