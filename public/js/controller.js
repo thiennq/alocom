@@ -1,5 +1,5 @@
-var FACEBOOK_ID = 0;
-var FULLNAME = "";
+var FACEBOOK_ID = localStorage.getItem("fbid");
+var FULLNAME = localStorage.getItem("fullname");
 
 
 app.controller("GCController", function($scope, $http, $interval){
