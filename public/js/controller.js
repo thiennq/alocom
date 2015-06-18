@@ -77,7 +77,7 @@ app.controller("GCController", function($scope, $http, $interval){
 
     var doReloadMenu = function(){
         $http.get(host + '/menu').success(function(data){
-            console.log(data);
+            // console.log(data);
             C.menu.array = data.menu;
             C.menu.host = data.host;
 
@@ -122,7 +122,7 @@ app.controller("GCController", function($scope, $http, $interval){
     };
 
     C.isHost = function(){
-        console.log(FACEBOOK_ID, C.menu.host.fbid);
+        // console.log(FACEBOOK_ID, C.menu.host.fbid);
         return FACEBOOK_ID == C.menu.host.fbid;
     }
 
