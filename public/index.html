@@ -20,7 +20,7 @@
         </h1>
         <div class="menu-btn-container">
             <button class="btn btn-info" ng-click="C.menu.visible = !C.menu.visible">Nhập danh sách món mới</button>
-            <button class="btn btn-success" ng-if="FACEBOOK_ID == C.menu.host.fbid" ng-click="C.sendDone()">Done</button>
+            <button class="btn btn-success" ng-if="C.isHost()" ng-click="C.sendDone()">Done</button>
         </div>
         <div class="menu-raw" ng-show="C.menu.visible">
             <div class="modal"></div>

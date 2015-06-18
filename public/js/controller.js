@@ -121,6 +121,11 @@ app.controller("GCController", function($scope, $http, $interval){
         })
     };
 
+    C.isHost = function(){
+        console.log(FACEBOOK_ID, C.menu.host.fbid)
+        return FACEBOOK_ID == C.menu.host.fbid;
+    }
+
     $interval(doReloadMenu, 5000);
 
 });
