@@ -37,10 +37,10 @@ app.filter("filterMenu", function(){
 
         var l = [];
         menu.total = 0;
-        for(var i = 0; i < menu.list.length; i++){
-            if(menu.list[i].total >= threshold){
-                menu.total += menu.list[i].total;
-                l.push(memu.list[i]);
+        for(var i = 0; i < menu.array.length; i++){
+            if(menu.array[i].total >= threshold){
+                menu.total += menu.array[i].total;
+                l.push(memu.array[i]);
             }
         }
 
