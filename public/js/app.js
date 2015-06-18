@@ -39,8 +39,8 @@ app.filter("filterMenu", function(){
         menu.total = 0;
         for(var i = 0; i < menu.array.length; i++){
             if(menu.array[i].total >= threshold){
-                // menu.total += menu.array[i].total;
-                l.push(memu.array[i]);
+                menu.total += menu.array[i].total;
+                l.push(menu.array[i]);
             }
         }
 
