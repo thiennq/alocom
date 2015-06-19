@@ -4,7 +4,7 @@ mongoose.connect(mongoUri);
 
 var userSchema = new mongoose.Schema({
   _id: String,
-  data: mongoose.Schema.Types.Mixed
+  data: String
 });
 var User = mongoose.model('User', userSchema);
 
@@ -16,10 +16,13 @@ function list(u) {
 			}
 			else {
 				if (users && users.data) {
-					var data = users.toObject().data;
+					var data = JSON.parse(users.toObject().data);
+					if (Array.isArray(data)) {
+						data = {};
+					}
 					resolve(data);	
 				} else {
-					resolve([]);
+					resolve({});
 				}
 				
 			}
@@ -29,8 +32,9 @@ function list(u) {
 }
 
 function store(users) {
+	console.log('::::store: users ->', users);
 	return new Promise(function(resolve, reject) {
-		User.findOneAndUpdate({_id: 'users'}, {data: users}, {upsert: true}, function(err) {
+		User.findOneAndUpdate({_id: 'users'}, {data: JSON.stringify(users)}, {upsert: true}, function(err) {
 			if (err) {
 				reject(false);
 			}

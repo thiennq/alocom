@@ -61,6 +61,7 @@ router.post('/vote', async function(req, res) {
 
 	var updateJson = false;
 	if (!users[fbid]) {
+		console.log('new user');
 		updateJson = true;
 	}
 	users[fbid] = user;
@@ -95,6 +96,7 @@ router.post('/vote', async function(req, res) {
 	});
 
 	if (updateJson) {
+		console.log('users.js -> users=', users);
 		let result = await userHelper.store(users);
 	}
 });
@@ -134,6 +136,7 @@ router.get('/users', function(req, res) {
 async function init() {
 	let userList = await userHelper.list();
 	if (userList) {
+		console.log('userList', userList);
 		users = userList;
 	}
 }
