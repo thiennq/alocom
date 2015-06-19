@@ -26,8 +26,7 @@ router.post('/menu', function(req, res) {
 			id: index++,
 			name: item,
 			list: [],
-			total: 0,
-			done: !canVote
+			total: 0
 		});
 	}
 	pplHash = {};
@@ -44,7 +43,8 @@ router.get('/menu', function(req, res) {
 		code: 0,
 		message: "success",
 		menu: dishes,
-		host: host
+		host: host,
+		done: !canVote
 	});
 });
 
