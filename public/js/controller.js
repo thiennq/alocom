@@ -5,6 +5,7 @@ var FULLNAME = localStorage.getItem("fullname");
 app.controller("GCController", function($scope, $http, $interval){
     var C = this;
     var host = "";
+    window.C = C;
 
 
     C.today = function(){
@@ -23,15 +24,13 @@ app.controller("GCController", function($scope, $http, $interval){
         onConfirm: function(){
             this.visible = false;
 
-            var arr = this.raw.split(/\s*\n\s*/);
+            var arr = this.raw.trim().split(/\s*\n\s*/);
+            console.log("arr", arr);
             
             var result = [];
-            var reg = /^[0-9]+\.\s+.+$/;
             for(var i = 0; i < arr.length; i++){
                 var line = arr[i];
-                if(reg.test(line)){
-                    result.push(line);
-                }
+                result.push(line);
             }
 
             console.log("con heo", result);

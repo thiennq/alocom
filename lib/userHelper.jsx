@@ -45,7 +45,22 @@ function store(users) {
 	});
 }
 
+function clear() {
+	console.log('::::clear: users ->', users);
+	return new Promise(function(resolve, reject) {
+		User.remove({}. function(err) {
+			if (err) {
+				reject(false);
+			}
+			else {
+				resolve(true);	
+			}
+		});
+	});
+}
+
 module.exports = {
 	list,
-	store
+	store,
+	clear
 };

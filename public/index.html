@@ -15,8 +15,11 @@
 </head>
 <body ng-app="GCApp">
     <div id="gccontroller" class="controller" ng-controller="GCController as C">
-        <h1 class="header">Danh sách món ngày {{ C.today() }} by {{C.menu.host.fullname}}
-            <img src="//graph.facebook.com/{{C.menu.host.fbid}}/picture?type=square">
+        <h1 class="header" ng-show="C.menu.host.fullname">Danh sách món ngày {{ C.today() }} by {{C.menu.host.fullname}}
+            <img ng-show="C.menu.host.fullname" src="//graph.facebook.com/{{C.menu.host.fbid}}/picture?type=square">
+        </h1>
+        <h1 class="header" ng-hide="C.menu.host.fullname">
+            Chưa có menu cho hôm nay
         </h1>
         <div class="menu-btn-container">
             <button class="btn btn-info" ng-click="C.menu.visible = !C.menu.visible">Nhập danh sách món mới</button>
@@ -113,7 +116,7 @@
 
             window.fbAsyncInit = function() {
                 FB.init({
-                    appId      : '1611030032498808',
+                    appId      : '1702434750025002',
                     xfbml      : true,
                     version    : 'v2.3'
                 });

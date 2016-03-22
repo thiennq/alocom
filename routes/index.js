@@ -7,6 +7,7 @@ var canVote = false;
 var users = {};
 var host = {};
 var userHelper = require('../lib/userHelper');
+// var userHelper = require('../lib/userMockup.jsx');
 
 router.post('/menu', function(req, res) {
 	var menu = req.body.menu;
@@ -132,6 +133,24 @@ router.get('/users', function(req, res) {
 		users: list
 	});
 });
+
+router.delete('/users', async function(req, res) {
+	var result = await userHelper.clear();
+	
+	if (!result) {
+		res.send({
+			code: -1,
+			message: 'Cannot clear user list'
+		});
+	}
+	res.send({
+		code: 0,
+		message: 'success'
+	});
+	
+});
+
+
 
 async function init() {
 	let userList = await userHelper.list();
