@@ -46,7 +46,7 @@ function store(users) {
 }
 
 function clear() {
-	console.log('::::clear: users ->', users);
+	console.log('::::clear: users');
 	return new Promise(function(resolve, reject) {
 		User.remove({}, function(err) {
 			if (err) {

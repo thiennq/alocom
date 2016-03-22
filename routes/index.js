@@ -135,19 +135,26 @@ router.get('/users', function(req, res) {
 });
 
 router.delete('/users', async function(req, res) {
-	var result = await userHelper.clear();
-	
-	if (!result) {
+	console.log("DELETE /users");
+	try {
+		var result = await userHelper.clear();
+		console.log("result", result);
+		
+		if (!result) {
+			return res.send({
+				code: -1,
+				message: 'Cannot clear user list'
+			});
+		}
 		res.send({
-			code: -1,
-			message: 'Cannot clear user list'
+			code: 0,
+			message: 'success'
 		});
+		
+	} catch (e) {
+		console.error(e.stack);
 	}
-	res.send({
-		code: 0,
-		message: 'success'
-	});
-	
+		
 });
 
 
