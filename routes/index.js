@@ -139,6 +139,7 @@ router.delete('/users', async function(req, res) {
 	try {
 		var result = await userHelper.clear();
 		console.log("result", result);
+		users = {};
 		
 		if (!result) {
 			return res.send({
