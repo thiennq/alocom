@@ -12,6 +12,7 @@ h1.header {
   text-align: center;
   font-weight: bold;
   font-family: 'Roboto Condensed', sans-serif;
+  font-size: 24pt;
 }
 .menu-btn-container {
   width: 100%;
@@ -83,12 +84,7 @@ h1.header {
 .menu-raw .menu-raw-input-dialog .btn.btn-close:hover {
   opacity: 1;
 }
-.menu-list {
-  position: absolute;
-  left: 50%;
-  top: 120px;
-  margin-left: -130px;
-}
+
 .menu-list .menu-item {
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 18px;
@@ -143,11 +139,8 @@ h1.header {
   display: none;
 }
 .user-list {
-  position: fixed;
-  width: 300px;
+  position: relative;
   height: 100%;
-  left: 0;
-  top: 0;
   overflow-y: auto;
 }
 .user-list .user-item {
@@ -184,4 +177,8 @@ h1.header {
 }
 .login-first .fb-button-container {
   display: inline-block;
+}
+
+.total {
+  font-size: 18pt;
 }

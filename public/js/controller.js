@@ -6,6 +6,7 @@ app.controller("GCController", function($scope, $http, $interval){
     var C = this;
     var host = "";
     window.C = C;
+    C.avatar = '';
 
 
     C.today = function(){
@@ -21,12 +22,13 @@ app.controller("GCController", function($scope, $http, $interval){
             fbid: 0,
             fullname: ""
         },
+        total: 0,
         onConfirm: function(){
             this.visible = false;
 
             var arr = this.raw.trim().split(/\s*\n\s*/);
             console.log("arr", arr);
-            
+
             var result = [];
             for(var i = 0; i < arr.length; i++){
                 var line = arr[i];
@@ -44,7 +46,7 @@ app.controller("GCController", function($scope, $http, $interval){
                 doReloadMenu();
             });
 
-            
+
         }
     };
 
@@ -62,7 +64,7 @@ app.controller("GCController", function($scope, $http, $interval){
             for(var i = 0; i < item.list.length; i++){
                 if(item.list[i].fbid === FACEBOOK_ID){
                     return true;
-                }    
+                }
             }
             return false;
         }
@@ -76,9 +78,10 @@ app.controller("GCController", function($scope, $http, $interval){
 
     var doReloadMenu = function(){
         $http.get(host + '/menu').success(function(data){
-            // console.log(data);
+            console.log(data);
             C.menu.array = data.menu;
             C.menu.host = data.host;
+            C.menu.total = data.menu.reduce((total, item) => total + item.total, 0);
 
             C.users.checked = {};
             for(var i = 0; i < data.menu.length; i++){
@@ -96,7 +99,7 @@ app.controller("GCController", function($scope, $http, $interval){
     };
 
 
-    
+
     var doReloadUsers = function(){
         $http.get(host + "/users").success(function(data){
             // console.log(data);

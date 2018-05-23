@@ -2,75 +2,82 @@
 <html>
 <head>
     <meta charset="utf-8">
-    
+    <meta http-equiv="X-UA-Compatible" content="IE=11" /><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css">
     <title>Goi Com</title>
-    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <!-- <script type="text/javascript" src="js/fake.js"></script> -->
     <script type="text/javascript" src="js/controller.js"></script>
 </head>
 <body ng-app="GCApp">
-    <div id="gccontroller" class="controller" ng-controller="GCController as C">
-        <h1 class="header" ng-show="C.menu.host.fullname">Danh sách món ngày {{ C.today() }} by {{C.menu.host.fullname}}
-            <img ng-show="C.menu.host.fullname" src="//graph.facebook.com/{{C.menu.host.fbid}}/picture?type=square">
-        </h1>
-        <h1 class="header" ng-hide="C.menu.host.fullname">
-            Chưa có menu cho hôm nay
-        </h1>
-        <div class="menu-btn-container">
-            <button class="btn btn-info" ng-click="C.menu.visible = !C.menu.visible">Nhập danh sách món mới</button>
-            <button class="btn btn-success" ng-show="C.isHost()" ng-click="C.sendDone()">Done</button>
-        </div>
-        <div class="menu-raw" ng-show="C.menu.visible">
-            <div class="modal"></div>
-            <div class="menu-raw-input-dialog">
-                <h2>Danh sách món ăn ngày {{C.today()}}</h2>
-                <div class="menu-raw-input-container">
-                    <textarea ng-model="C.menu.raw"></textarea>    
-                </div>
-                
-                <button class="btn btn-success btn-confirm" ng-click="C.menu.onConfirm()">Confirm</button>
-                
-                <b class="btn btn-close" ng-click="C.menu.visible=false">&times;</b>
+    <div class="container">
+      <div class="row controller" id="gccontroller" ng-controller="GCController as C">
+        <div class="col-sm-12 col-xs-12">
+            <h1 class="header" ng-show="C.menu.host.fullname">Danh sách món ngày {{ C.today() }} by {{C.menu.host.fullname}}
+                <img ng-show="C.menu.host.fullname" src="//graph.facebook.com/{{C.menu.host.fbid}}/picture?type=square">
+            </h1>
+            <h1 class="header" ng-hide="C.menu.host.fullname">
+                Chưa có menu cho hôm nay
+            </h1>
+            <div class="menu-btn-container">
+                <button class="btn btn-info" ng-click="C.menu.visible = !C.menu.visible">Nhập danh sách món mới</button>
+                <span class="total total-title">Total:</span><span class="total total-quant">{{C.menu.total}}</span>
+                <button class="btn btn-success" ng-show="C.isHost()" ng-click="C.sendDone()">Done</button>
             </div>
+            <div class="menu-raw" ng-show="C.menu.visible">
+                <div class="modal"></div>
+                <div class="menu-raw-input-dialog">
+                    <h2>Danh sách món ăn ngày {{C.today()}}</h2>
+                    <div class="menu-raw-input-container">
+                        <textarea ng-model="C.menu.raw"></textarea>
+                    </div>
+
+                    <button class="btn btn-success btn-confirm" ng-click="C.menu.onConfirm()">Confirm</button>
+
+                    <b class="btn btn-close" ng-click="C.menu.visible=false">&times;</b>
+                </div>
+            </div>
+
+
+
         </div>
 
-        <div class="menu-list">
-            <div class="menu-item {{item.total | hasValue}}" 
-                ng-repeat="item in C.menu | filterMenu" 
+        <div class="col-sm-4 hidden-xs">
+          <div class="user-list">
+              <div class="user-item  {{user.checked | toCheckedClass}}" ng-repeat="user in C.users | sortUsers" >
+                  <div class="user" >
+
+                      <div class="line1">
+                          <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >
+                          <span>{{user.fullname}}</span>
+                      </div>
+                      <!-- <div class="line2">{{user.updated_time|toTime}}</div> -->
+                  </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="col-sm-8 col-xs-12">
+          <div class="menu-list">
+            <div class="menu-item {{item.total | hasValue}}"
+                ng-repeat="item in C.menu | filterMenu | totalSort"
                 ng-click="C.vote.doVote(item)">
                 <div class="glyphicon glyphicon-play is-you" ng-show="C.vote.checkYou(item)"></div>
                 <div class="count">{{item.total}}</div>
                 <span class="item-name">{{item.name}}</span>
                 <div class="users-container">
                     <div class="user" ng-repeat="user in item.list">
-                        <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >    
+                        <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >
                     </div>
 
                 </div>
-            
             </div>
-            <div class="total-call">{{C.menu.total}}</div>
+          </div>
         </div>
-
-        <div class="user-list">
-            <div class="user-item  {{user.checked | toCheckedClass}}" ng-repeat="user in C.users | sortUsers" >
-                <div class="user" >
-
-                    <div class="line1">
-                        <img src="//graph.facebook.com/{{user.fbid}}/picture?type=square" >    
-                        <span>{{user.fullname}}</span>
-                    </div>
-                    <!-- <div class="line2">{{user.updated_time|toTime}}</div> -->
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-
     <div id="login" class="login-first">
         <div class="fb-button-container">
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
@@ -114,9 +121,14 @@
                 });
             }
 
+            var FB_APP_ID = '1611030032498808';
+            if (window.location.href.indexOf('localhost') != -1) {
+              FB_APP_ID = '1702434750025002';
+            }
+
             window.fbAsyncInit = function() {
                 FB.init({
-                    appId      : '1611030032498808',
+                    appId      : FB_APP_ID,
                     xfbml      : true,
                     version    : 'v2.3'
                 });
@@ -156,7 +168,7 @@
             }
         }
 
-        
+
     </script>
 </body>
 </html>

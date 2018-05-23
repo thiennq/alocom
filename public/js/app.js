@@ -13,6 +13,7 @@ var app = angular.module("GCApp", []);
 
 app.filter("totalSort", function() {
     return function(array){
+      console.log('array', array);
         return array.sort(function(a, b){
             return b.total - a.total;
         });
@@ -83,6 +84,6 @@ app.filter("sortUsers", function(){
         else{
             return [];
         }
-        
+
     }
 });
